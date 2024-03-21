@@ -1,0 +1,109 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Task Manager</h1>
+
+      <div class="task-form">
+        <form action="">
+          <label for="courseId">CourseID:</label>
+          <input type="text" id="courseId" required />
+
+          <label for="taskName">TaskName:</label>
+          <input type="text" id="taskName" required />
+
+          <label for="dueDate">DueDate:</label>
+          <input type="date" id="dueDate" required />
+<br>
+          <label class="lab" for="additionalDetails">Additional Details:</label>
+          <input type="textarea" id="additionalDetails"></textarea>
+<br>
+          <button onclick="postTask()">Add Task</button>
+        </form>
+      </div>
+
+      <div id="taskList">
+        <h2>Task List</h2>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", getTasks);
+
+      function postTask() {
+        const courseId = document.getElementById("courseId").value;
+        const taskName = document.getElementById("taskName").value;
+        const dueDate = document.getElementById("dueDate").value;
+        const additionalDetails =
+          document.getElementById("additionalDetails").value;
+        console.log(courseId);
+        fetch("http://localhost:3300/watchData", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            courseId,
+            taskName,
+            dueDate,
+            additionalDetails,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Task added successfully:", data);
+            // location.reload();
+          })
+          .catch((error) => {
+            console.error("Error adding task:", error);
+          });
+      }
+
+      function getTasks() {
+        fetch("http://localhost:3300/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            displayTasks(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching tasks:", error);
+          });
+      }
+
+      function displayTasks(tasks) {
+        const taskList = document.getElementById("taskList");
+        taskList.innerHTML = "";
+        if (tasks && Array.isArray(tasks)) {
+          tasks.forEach((task) => {
+            const div = document.createElement("div");
+            div.classList.add("inner");
+            div.textContent = `Course ID: ${task.courseId}, Task Name: ${
+              task.taskName
+            }, Due Date: ${task.dueDate}, Additional Details: ${
+              task.additionalDetails || "N/A"
+            }`;
+            taskList.appendChild(div);
+          });
+        } else {
+          console.error("Array is undefined or not an array.");
+        }
+      }
+    </script>
+  </body>
+</html>
+

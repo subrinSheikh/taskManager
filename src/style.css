@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Beau+Rivage&family=Butterfly+Kids&family=Klee+One&family=Loved+by+the+King&family=Patrick+Hand+SC&family=Sacramento&display=swap");
+.container {
+  /* background-color: rgb(92, 92, 225); */
+  margin: auto 10vw;
+  font-size: 1rem;
+  border: 2px solid black;
+  font-family: "Loved by the King", cursive;
+  margin-top: 150px;
+  backdrop-filter: blur(10px);
+  font-weight: bolder;
+  border-radius: 54px 0px 54px 0px;
+}
+body {
+  background-image: url("https://picsum.photos/800/600");
+  background-size: 100% 100%;
+}
+
+.container .task-form {
+  display: flex;
+  font-size: 2rem;
+}
+
+#additionalDetails {
+  margin-top: 20px;
+  /*  */
+}
+input {
+  padding: 10px 20px;
+}
+h1 {
+  text-align: center;
+}
+.lab {
+  margin-left: 230px;
+}
+button {
+  margin-left: 450px;
+  margin-top: 40px;
+  padding: 10px 10px;
+  color: wheat;
+  background-color: black;
+  border: none;
+  border-radius: 10px;
+}
+#dueDate {
+  font-size: 1rem;
+
+  /* padding: 5px 10px !important; */
+}
+.inner {
+  font-size: 2rem;
+}
